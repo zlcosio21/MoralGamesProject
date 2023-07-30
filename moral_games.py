@@ -1,17 +1,35 @@
 class Inventario:
     def _init_(self):
-        self.inventario = []
+        self.videojuegos = []
+        self.genero_videojuegos = {}
 
     def agregar_videojuego(self, titulo, plataforma, precio, stock, genero):
         self.titulo = titulo
         self.plataforma = plataforma
         self.precio = precio
         self.stock = stock
-        self.genero = genero
+        self.genero = genero 
 
-        self.inventario.append(self.titulo)
         print(f"Se ha agregado el videojuego {self.titulo} al inventario")
+        self.videojuegos.append(titulo)
 
+        if self.genero in self.genero_videojuegos:
+            self.genero_videojuegos[self.genero].append(titulo)
+        else:
+            self.genero_videojuegos[self.genero] = [titulo]
+
+    def buscar_videojuego(self, videojuego_genero):
+        print(f"Se busco {videojuego_genero}, se encontro: ")
+
+        if videojuego_genero in self.genero_videojuegos:
+            lista_generos = self.genero_videojuegos[videojuego_genero]
+            for videojuego in lista_generos:
+                print(f"-{videojuego}")            
+        elif videojuego_genero in self.videojuegos:
+            print(f"-{videojuego_genero}")
+        else:
+            print(f"El videojuego o genero, no se encuentra en el inventario")
+            
 class CarritoDeCompras:
     pass
 
