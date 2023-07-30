@@ -1,5 +1,5 @@
 class Inventario:
-    def _init_(self):
+    def __init__(self):
         self.videojuegos = []
         self.genero_videojuegos = {}
 
@@ -29,7 +29,15 @@ class Inventario:
             print(f"-{videojuego_genero}")
         else:
             print(f"El videojuego o genero, no se encuentra en el inventario")
-            
+
+    def mostrar_videojuegos(self):
+        if self.videojuegos:
+            print("Los videojuegos que se encuentran en la tienda son:")
+            for videojuego in self.videojuegos:
+                print(f"-{videojuego}")
+        else:
+            print("No hay videojuegos en el inventario de la tienda")
+
 class CarritoDeCompras:
     pass
 
