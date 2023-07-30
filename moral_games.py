@@ -3,7 +3,7 @@ class Inventario:
         self.videojuegos = []
         self.genero_videojuegos = {}
 
-    def agregar_videojuego(self, titulo, plataforma, precio, stock, genero):
+    def agregar_videojuego(self, titulo, plataforma, precio, stock, *genero):
         self.titulo = titulo
         self.plataforma = plataforma
         self.precio = precio
@@ -13,10 +13,11 @@ class Inventario:
         print(f"Se ha agregado el videojuego {self.titulo} al inventario")
         self.videojuegos.append(titulo)
 
-        if self.genero in self.genero_videojuegos:
-            self.genero_videojuegos[self.genero].append(titulo)
-        else:
-            self.genero_videojuegos[self.genero] = [titulo]
+        for genero in self.genero:
+            if genero in self.genero_videojuegos:
+                self.genero_videojuegos[genero].append(titulo)
+            else:
+                self.genero_videojuegos[genero] = [titulo]
 
     def buscar_videojuego(self, videojuego_genero):
         print(f"Se busco {videojuego_genero}, se encontro: ")
