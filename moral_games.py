@@ -61,7 +61,7 @@ class Cliente(Inventario):
         for videojuego in videojuegos_comprados:
             if videojuego in self.inventario_videojuegos:
                 self.productos_carrito.append(videojuego)
-                print(f"El videojuego '{videojuego}' se ha agregado al carrito")
+                print(f"-El videojuego '{videojuego}' se ha agregado al carrito")
             else:
                 print(f"El videojuego '{videojuego}' no se encuentra en la tienda")
                 return
@@ -69,5 +69,9 @@ class Cliente(Inventario):
         print("Todos los videojuegos se han agregado al carrito.")
 
     def realizar_compra(self):
+        total_compra = 0
         for videojuego in self.productos_carrito:
+            precio_videojuego = self.precio_videojuegos[videojuego]
+            total_compra = total_compra + precio_videojuego
             self.stock_videojuegos[videojuego] -= 1
+        print(f"El total de la compra de {self.nombre}, {self.apellido} es: ${total_compra}")
