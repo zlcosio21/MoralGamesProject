@@ -35,8 +35,8 @@ class Videojuego(Inventario):
         if self.titulo not in self.inventario_videojuegos:
             print(f"Se ha agregado el videojuego {self.titulo} al inventario")
             self.inventario_videojuegos.append(self.titulo)
-            self.precio_videojuegos[self.titulo] = [self.precio]
-            self.stock_videojuegos[self.titulo] = [self.stock]            
+            self.precio_videojuegos[self.titulo] = self.precio
+            self.stock_videojuegos[self.titulo] = self.stock         
             for genero in self.genero:
                 if genero in self.genero_videojuegos:
                     self.genero_videojuegos[genero].append(self.titulo)
@@ -68,6 +68,6 @@ class Cliente(Inventario):
 
         print("Todos los videojuegos se han agregado al carrito.")
 
-class Compra(Cliente):
-    def _init_(self):
-        pass
+    def realizar_compra(self):
+        for videojuego in self.productos_carrito:
+            self.stock_videojuegos[videojuego] -= 1
