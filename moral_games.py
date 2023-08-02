@@ -71,16 +71,3 @@ class Cliente(Inventario):
 class Compra(Cliente):
     def _init_(self):
         pass
-
-juego1 = Videojuego("Resident Evil 4", "Consola", 38, 100, "Survival Horror")
-juego2 = Videojuego("Fifa 21", "Consola", 70, 100, "Deportes")
-juego3 = Videojuego("Grand Theft Auto San Andreas", "PC", 100, 16, "Mundo Abierto")
-juego4 = Videojuego("Devil May Cry 3", "Consola", 20, 100, "Accion")
-juego5 = Videojuego("Minecraft", "Movil", 60, 100, "Mundo Abierto")
-usuario1 = Cliente("Sebastian", "ANDRES")
-usuario1.tomar_carrito()
-usuario1.agregar_productos("Fifa 21", "Resident Evil 4", "Sebastian") 
-usuario2 = Cliente("h", "h")
-usuario2.tomar_carrito()
-usuario2.agregar_productos("Fifa 21", "omar")
-print(usuario2.productos_carrito)
