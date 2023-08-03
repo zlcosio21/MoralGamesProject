@@ -36,7 +36,19 @@ class Inventario:
             self.precio_videojuegos[titulo] = precio
             print(f"Se ha actualizado el videojuego {titulo}, con un precio de {precio} y un stock de {stock}")
         else:
-            print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")              
+            print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")    
+
+    def mostrar_requisitos(self, titulo):
+        if titulo in self.requisitos_videojuegos:
+            print(f"La clasificacion del videojuego {titulo} es {self.requisitos_videojuegos[titulo]}")
+        else:
+            print("El videojuego debe ser de pc")
+
+    def mostrar_clasifiacion(self, titulo):
+        if titulo in self.clasificacion_videojuegos:
+            print(f"La clasificacion del videojuego {titulo} es {self.clasificacion_videojuegos[titulo]}")
+        else:
+            print("El videojuego debe ser de consola")
             
 class Videojuego(Inventario):
     def __init__(self, titulo, plataforma, precio, stock, genero):
