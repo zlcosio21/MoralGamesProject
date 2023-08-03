@@ -24,6 +24,14 @@ class Inventario:
         else:
             print("No hay videojuegos en el inventario de la tienda")
 
+    def actualizar_videojuego(self, titulo, precio, stock):
+        if titulo in self.inventario_videojuegos:
+            self.stock_videojuegos[titulo] = stock
+            self.precio_videojuegos[titulo] = precio
+            print(f"Se ha actualizado el videojuego {titulo}, con un precio de {precio} y un stock de {stock}")
+        else:
+            print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")    
+
 class Videojuego(Inventario):
     def __init__(self, titulo, plataforma, precio, stock, *genero):
         self.titulo = titulo
@@ -77,4 +85,5 @@ class Cliente(Inventario):
             precio_videojuego = self.precio_videojuegos[videojuego] * self.cantidad
             total_compra = total_compra + precio_videojuego
             self.stock_videojuegos[videojuego] -= self.cantidad
+
         print(f"El total de la compra de {self.nombre} {self.apellido} es: ${total_compra}")
