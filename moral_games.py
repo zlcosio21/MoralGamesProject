@@ -69,8 +69,7 @@ class Videojuego(Inventario):
         except TypeError:
             print(f"El precio y el stock del videojuego {self.titulo} deben ser numeros naturales")
             return
-        
-        
+              
         if self.titulo not in self.inventario_videojuegos:
             print(f"Se ha agregado el videojuego {self.titulo} al inventario")
 
@@ -141,7 +140,7 @@ class Cliente(Inventario):
         total_compra = 0
 
         if not self.productos_carrito:
-            print(f"El cliente {self.nombre}, {self.apellido}, No ha agregado productos al carrito aun")
+            print(f"El cliente {self.nombre} {self.apellido}, No ha agregado productos al carrito aun")
             return
         
         for videojuego in self.productos_carrito:
@@ -149,3 +148,6 @@ class Cliente(Inventario):
             total_compra = total_compra + precio_videojuego
 
         print(f"El total de la compra de {self.nombre} {self.apellido} es: ${total_compra}")
+
+    def actualizar_videojuego(self, titulo, precio, stock):
+        print(f"El cliente {self.nombre} {self.apellido} no tiene permiso para actualizar el videojuego")
