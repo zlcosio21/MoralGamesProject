@@ -70,9 +70,9 @@ class Videojuego(Inventario):
             self.stock_videojuegos[self.titulo] = self.stock
             
             if self.genero in self.genero_videojuegos:
-                self.genero_videojuegos[genero].append(self.titulo)
+                self.genero_videojuegos[self.genero].append(self.titulo)
             else:
-                self.genero_videojuegos[genero] = [self.titulo]
+                self.genero_videojuegos[self.genero] = [self.titulo]
 
         else:
             print(f"!El videojuego {self.titulo} ya se encuentra en el inventario")       
@@ -115,12 +115,12 @@ class Cliente(Inventario):
             if videojuego in self.inventario_videojuegos:
                 stock_disponible = self.stock_videojuegos[videojuego]
 
-                if cantidad > stock_disponible:
-                    cantidad = stock_disponible
-                    print(f"No se pueden agregar {cantidad} unidades del videojuego {videojuego}, Se agregarán las {stock_disponible} unidades disponibles al carrito")
+                if self.cantidad > stock_disponible:
+                    self.cantidad = stock_disponible
+                    print(f"No se pueden agregar {self.cantidad} unidades del videojuego {videojuego}, Se agregarán las {stock_disponible} unidades disponibles al carrito")
 
                 self.productos_carrito.append(videojuego)
-                self.stock_videojuegos[videojuego] -= cantidad
+                self.stock_videojuegos[videojuego] -= self.cantidad
                 print(f"-El videojuego {videojuego} se ha agregado al carrito")
                 print("Todos los videojuegos se han agregado al carrito.")
 
@@ -130,10 +130,13 @@ class Cliente(Inventario):
 
     def realizar_compra(self):
         total_compra = 0
+
+        if not self.productos_carrito:
+            print(f"El cliente {self.nombre}, {self.apellido}, No ha agregado productos al carrito aun")
+            return
         
         for videojuego in self.productos_carrito:
             precio_videojuego = self.precio_videojuegos[videojuego] * self.cantidad
             total_compra = total_compra + precio_videojuego
-            self.stock_videojuegos[videojuego] -= self.cantidad
 
         print(f"El total de la compra de {self.nombre} {self.apellido} es: ${total_compra}")
