@@ -71,7 +71,7 @@ class Videojuego(Inventario):
             return
               
         if self.titulo not in self.inventario_videojuegos:
-            print(f"Se ha agregado el videojuego {self.titulo} al inventario")
+            print(f"Se ha agregado el videojuego {self.titulo} al inventario.")
 
             self.inventario_videojuegos.append(self.titulo)
             self.precio_videojuegos[self.titulo] = self.precio
