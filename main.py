@@ -1,4 +1,4 @@
-from moral_games import Inventario, Videojuego, VideojuegoConsola, VideojuegoPc
+from moral_games import Inventario, Videojuego, VideojuegoConsola, VideojuegoPc, Cliente
 
 #Agregar videojuegos al inventario
 juego1 = VideojuegoConsola("Resident Evil 4", "Consola", 38, 100, "Survival Horror", "D")
@@ -16,7 +16,7 @@ juego13 = VideojuegoConsola("The Last of Us", "Consola", 419, 100, "Survival hor
 juego14 = VideojuegoConsola("God of War Ragnarok", "Consola", 339, 100, "Aventura", "M")
 juego15 = VideojuegoConsola("Elden Ring", "Consola", 207, 100, "Aventura", "C")
 
-juego16 = VideojuegoPc("Grand Theft Auto San Andreas", "PC", 100, 16, "Mundo Abierto", "1Ghz, 256MB RAM. 64MB Geforce, 3.6GB")
+juego16 = VideojuegoPc("Grand Theft Auto San Andreas", "PC", 100, 100, "Mundo Abierto", "1Ghz, 256MB RAM. 64MB Geforce, 3.6GB")
 juego17 = VideojuegoPc("Call of Duty Blacks Ops 2", "PC", 60, 100, "Accion", "2.66GHz, 2GB RAM, 512MB Nvidia, 16GB")
 juego18 = VideojuegoPc("Outlast", "PC", 47, 100, "Terror", "2.66GHz, 2GB RAM, 512MB Nvidia, 16GB")
 juego19 = VideojuegoPc("It Takes Two", "PC", 159, 100, "Aventura", "AMD FX 6100, 8GB RAM, AMD 260X, 50GB")
@@ -24,3 +24,14 @@ juego20 = VideojuegoPc("Resident Evil 7", "PC", 156, 100, "Terror", "2.70GHz, 8G
 juego21 = VideojuegoPc("Outlast 2", "PC", 83, 100, "Terror", "Intel Core i5, 8GB RAM, 1.5GB Geforce, 30GB")
 juego23 = VideojuegoPc("Until Dawn", "PC", 99, 100, "Terror", "2.4GHz, 4GB RAM, 256MB, 13GB")
 juego24 = VideojuegoPc("Pay Day 3", "PC", 49, 100, "Accion", "I5-9400F, 16GB RAM, 4GB Nvidia, 83GB")
+juego24.actualizar_videojuego("Pay Day 3", 21, 21)
+
+#Toma de carrito y compra de cliente
+cliente1 = Cliente("Tom", "Holland")
+cliente1.mostrar_videojuegos()
+cliente1.buscar_videojuego("Terror")
+cliente1.mostrar_clasificacion("Resident Evil 4")
+cliente1.mostrar_requisitos("Resident Evil 7")
+cliente1.tomar_carrito()
+cliente1.agregar_productos(10, "Grand Theft Auto San Andreas", "Call of Duty Blacks Ops 2", "Outlast 2")
+cliente1.realizar_compra()

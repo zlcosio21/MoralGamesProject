@@ -13,7 +13,8 @@ class Inventario:
             lista_generos = self.genero_videojuegos[videojuego_genero]
 
             for videojuego in lista_generos:
-                print(f"-{videojuego}")  
+                print(f"-{videojuego}")
+            print("\n")
 
         elif videojuego_genero in self.inventario_videojuegos:
             print(f"-{videojuego_genero}")
@@ -22,10 +23,11 @@ class Inventario:
 
     def mostrar_videojuegos(self):
         if self.inventario_videojuegos:
-            print("Los videojuegos que se encuentran en la tienda son:")
+            print("\nLos videojuegos que se encuentran en la tienda son:")
 
             for juego in self.inventario_videojuegos:
-                print(f"-{juego}") 
+                print(f"-{juego}")
+            print("\n")
 
         else:
             print("No hay videojuegos en el inventario de la tienda")
@@ -44,15 +46,15 @@ class Inventario:
 
     def mostrar_requisitos(self, titulo):
         if titulo in self.requisitos_videojuegos:
-            print(f"Los requisitos minimos del videojuego {titulo} es {self.requisitos_videojuegos[titulo]}")
+            print(f"Los requisitos minimos del videojuego {titulo} son {self.requisitos_videojuegos[titulo]}\n")
         else:
-            print("El videojuego debe ser de pc")
+            print("El videojuego debe ser de pc\n")
 
     def mostrar_clasificacion(self, titulo):
         if titulo in self.clasificacion_videojuegos:
-            print(f"La clasificacion del videojuego {titulo} es {self.clasificacion_videojuegos[titulo]}")
+            print(f"La clasificacion del videojuego {titulo} es {self.clasificacion_videojuegos[titulo]}\n")
         else:
-            print("El videojuego debe ser de consola")
+            print("\nEl videojuego debe ser de consola")
             
 class Videojuego(Inventario):
     def __init__(self, titulo, plataforma, precio, stock, genero):
@@ -129,12 +131,13 @@ class Cliente(Inventario):
 
                 self.productos_carrito.append(videojuego)
                 self.stock_videojuegos[videojuego] -= self.cantidad
-                print(f"-El videojuego {videojuego} se ha agregado al carrito")
-                print("Todos los videojuegos se han agregado al carrito.")
+                print(f"-El videojuego {videojuego} se ha gregado al carrito con una cantidad de {self.cantidad} unidades")
 
             else:
                 print(f"El videojuego {videojuego} no se encuentra en la tienda")
                 return
+            
+        print("Todos los videojuegos se han agregado al carrito \n")
 
     def realizar_compra(self):
         total_compra = 0
