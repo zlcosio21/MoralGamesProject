@@ -109,18 +109,27 @@ class Cliente(Inventario):
     def agregar_productos(self, cantidad, *videojuegos_comprados):
         self.cantidad = cantidad
 
-        if self.carrito_tomado:
-            for videojuego in videojuegos_comprados:
-                if videojuego in self.inventario_videojuegos:
-                    self.productos_carrito.append(videojuego)
-                    print(f"-El videojuego {videojuego} se ha agregado al carrito")
-                else:
-                    print(f"El videojuego {videojuego} no se encuentra en la tienda")
-                    return
-        else:
+        if not self.carrito_tomado:
             print(f"El cliente {self.nombre} {self.apellido} no ha tomado un carrito aun")
+            return
+        
+        for videojuego in videojuegos_comprados:
+            if videojuego in self.inventario_videojuegos:
+                stock_disponible = self.stock_videojuegos[videojuego]
+
+                if videojuego > stock_disponible:
+                    cantidad = stock_disponible
+                    print(f"No se pueden agregar {cantidad} unidades del videojuego {videojuego}, Se agregarán {stock_disponible} las unidades disponibles al carrito")
+
+                self.productos_carrito.append(videojuego)
+                self.stock_videojuegos[videojuego] -= cantidad
+                print(f"-El videojuego {videojuego} se ha agregado al carrito")
+
+            else:
+                print(f"El videojuego {videojuego} no se encuentra en la tienda")
 
         print("Todos los videojuegos se han agregado al carrito.")
+
 
     def realizar_compra(self):
         total_compra = 0
