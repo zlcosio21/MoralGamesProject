@@ -62,9 +62,14 @@ class Videojuego(Inventario):
         self.stock = stock  
         self.genero = genero
 
-        if self.precio <= 0 or self.stock <= 0:
-            print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
+        try:
+            if self.precio <= 0 or self.stock <= 0:
+                print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
+                return
+        except TypeError:
+            print(f"El precio y el stock del videojuego {self.titulo} deben ser numeros naturales")
             return
+        
         
         if self.titulo not in self.inventario_videojuegos:
             print(f"Se ha agregado el videojuego {self.titulo} al inventario")
