@@ -31,6 +31,10 @@ class Inventario:
             print("No hay videojuegos en el inventario de la tienda")
 
     def actualizar_videojuego(self, titulo, precio, stock):
+        if precio <= 0 or stock <= 0:
+            print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
+            return
+        
         if titulo in self.inventario_videojuegos:
             self.stock_videojuegos[titulo] = stock
             self.precio_videojuegos[titulo] = precio
@@ -77,7 +81,7 @@ class Videojuego(Inventario):
         else:
             print(f"!El videojuego {self.titulo} ya se encuentra en el inventario")       
 
-class VideojuegoPC(Videojuego):
+class VideojuegoPc(Videojuego):
     def __init__(self, titulo, plataforma, precio, stock, genero, requisitos_minimos):
         super().__init__(titulo, plataforma, precio, stock, genero)
         self.requisitos_minimos = requisitos_minimos   
