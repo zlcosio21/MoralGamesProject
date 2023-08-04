@@ -99,21 +99,26 @@ class Cliente(Inventario):
         self.nombre = nombre
         self.apellido = apellido
         self.productos_carrito = []
+        self.carrito_tomado = False
 
     def tomar_carrito(self):
         Cliente.contador_carrito += 1
-        print(f"El Cliente {self.nombre} {self.apellido} a tomado el carrito {self.contador_carrito}")
+        self.carrito_tomado = True
+        print(f"El cliente {self.nombre} {self.apellido} a tomado el carrito {self.contador_carrito}")
 
     def agregar_productos(self, cantidad, *videojuegos_comprados):
         self.cantidad = cantidad
 
-        for videojuego in videojuegos_comprados:
-            if videojuego in self.inventario_videojuegos:
-                self.productos_carrito.append(videojuego)
-                print(f"-El videojuego {videojuego} se ha agregado al carrito")
-            else:
-                print(f"El videojuego {videojuego} no se encuentra en la tienda")
-                return
+        if self.carrito_tomado:
+            for videojuego in videojuegos_comprados:
+                if videojuego in self.inventario_videojuegos:
+                    self.productos_carrito.append(videojuego)
+                    print(f"-El videojuego {videojuego} se ha agregado al carrito")
+                else:
+                    print(f"El videojuego {videojuego} no se encuentra en la tienda")
+                    return
+        else:
+            print(f"El cliente {self.nombre} {self.apellido} no ha tomado un carrito aun")
 
         print("Todos los videojuegos se han agregado al carrito.")
 
