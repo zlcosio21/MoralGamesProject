@@ -142,6 +142,10 @@ class Carrito:
             
         print("Todos los videojuegos se han agregado al carrito \n")
 
+    def mostrar_productos(self):
+        for productos in self.productos_carrito:
+            print(productos)
+
 class Compra:
     def __init__(self, cliente):
         self.nombre = cliente.nombre
