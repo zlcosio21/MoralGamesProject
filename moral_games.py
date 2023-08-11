@@ -4,28 +4,18 @@ class Videojuego:
         self.plataforma = plataforma
         self.precio = precio
         self.stock = stock  
-        self.genero = genero
-
-        try:
-            if self.precio <= 0 or self.stock <= 0:
-                print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
-                return
-        except TypeError:
-            print(f"El precio y el stock del videojuego {self.titulo} deben ser numeros naturales")
-            return
+        self.genero = genero    
 
 class VideojuegoPc(Videojuego):
     def __init__(self, titulo, plataforma, precio, stock, genero, requisitos_minimos):
         super().__init__(titulo, plataforma, precio, stock, genero)
         self.requisitos_minimos = requisitos_minimos   
-        Inventario.requisitos_videojuegos[self.titulo] = self.requisitos_minimos
 
         
 class VideojuegoConsola(Videojuego):
     def __init__(self, titulo, plataforma, precio, stock, genero, clasificacion):
         super().__init__(titulo, plataforma, precio, stock, genero)
         self.clasificacion = clasificacion
-        Inventario.clasificacion_videojuegos[self.titulo] = self.clasificacion
 
 class Inventario:
     genero_videojuegos = {}
@@ -36,6 +26,14 @@ class Inventario:
     clasificacion_videojuegos = {}
     
     def agregar_videojuego(self, videojuego):
+        try:
+            if videojuego.precio <= 0 or videojuego.stock <= 0:
+                print(f"El stock y precio del videojuego {videojuego.titulo}, debe ser mayor a 0")
+                return
+        except TypeError:
+            print(f"El precio y el stock del videojuego {videojuego.titulo} deben ser numeros naturales")
+            return
+
         if videojuego.titulo not in self.inventario_videojuegos:
             print(f"Se ha agregado el videojuego {videojuego.titulo} al inventario.")
 
@@ -43,6 +41,11 @@ class Inventario:
             self.precio_videojuegos[videojuego.titulo] = videojuego.precio
             self.stock_videojuegos[videojuego.titulo] = videojuego.stock
 
+            if isinstance(videojuego, VideojuegoPc):
+                self.requisitos_videojuegos[videojuego.titulo] = videojuego.requisitos_minimos
+            elif isinstance(videojuego, VideojuegoConsola):
+                self.clasificacion_videojuegos[videojuego.titulo] = videojuego.clasificacion
+            
             if videojuego.genero in self.genero_videojuegos:
                 self.genero_videojuegos[videojuego.genero].append(videojuego.titulo)
             else:
@@ -50,7 +53,6 @@ class Inventario:
 
         else:
             print(f"!El videojuego {videojuego.titulo} ya se encuentra en el inventario")       
-
 
     def actualizar_videojuego(self, titulo, precio, stock):
         if precio <= 0 or stock <= 0:
@@ -64,15 +66,6 @@ class Inventario:
         else:
             print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")    
         
-
-juego1 = VideojuegoPc("cosio", "pc", 20, 20, "eche", "4de ram")
-
-inventario = Inventario()
-inventario.agregar_videojuego(juego1)
-
-print(inventario.requisitos_videojuegos)
-print()
-
 class Cliente(Inventario):
     contador_carrito = 0
 
