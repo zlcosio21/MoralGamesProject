@@ -67,14 +67,10 @@ class Inventario:
         else:
             print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")    
         
-
-
 class Cliente:
     def __init__(self, nombre, apellido):
         self.nombre = nombre
         self.apellido = apellido
-        self.productos_carrito = []
-        self.carrito_tomado = False
 
     def buscar_videojuego(self, videojuego_genero):
         print(f"Se busco '{videojuego_genero}', se encontro: ")
@@ -114,30 +110,29 @@ class Cliente:
         else:
             print("\nEl videojuego debe ser de consola")        
     
+class Carrito:
+    contador_carrito = 0    
 
-    def tomar_carrito(self):
-        Cliente.contador_carrito += 1
-        self.carrito_tomado = True
-        print(f"El cliente {self.nombre} {self.apellido} a tomado el carrito {self.contador_carrito}")
+    def __init__(self, cliente):
+        Carrito.contador_carrito += 1
+        self.productos_carrito = []
+
+        print(f"El cliente {cliente.nombre} {cliente.apellido} a tomado el carrito {self.contador_carrito}")
 
     def agregar_productos(self, cantidad, *videojuegos_comprados):
         self.cantidad = cantidad
 
-        if not self.carrito_tomado:
-            print(f"El cliente {self.nombre} {self.apellido} no ha tomado un carrito aun")
-            return
-        
         for videojuego in videojuegos_comprados:
-            if videojuego in self.inventario_videojuegos:
-                stock_disponible = self.stock_videojuegos[videojuego]
+            if videojuego in Inventario.inventario_videojuegos:
+                stock_disponible = Inventario.stock_videojuegos[videojuego]
 
                 if self.cantidad > stock_disponible:
-                    self.cantidad = stock_disponible
                     print(f"No se pueden agregar {self.cantidad} unidades del videojuego {videojuego}, Se agregarán las {stock_disponible} unidades disponibles al carrito")
-
+                    self.cantidad = stock_disponible
+                    
                 self.productos_carrito.append(videojuego)
-                self.stock_videojuegos[videojuego] -= self.cantidad
-                print(f"-El videojuego {videojuego} se ha gregado al carrito con una cantidad de {self.cantidad} unidades")
+                Inventario.stock_videojuegos[videojuego] -= self.cantidad
+                print(f"-El videojuego {videojuego} se ha gregado al carrito de {self.nombre} con una cantidad de {self.cantidad} unidades")
 
             else:
                 print(f"El videojuego {videojuego} no se encuentra en la tienda")
@@ -157,6 +152,3 @@ class Cliente:
             total_compra = total_compra + precio_videojuego
 
         print(f"El total de la compra de {self.nombre} {self.apellido} es: ${total_compra}")
-
-    def actualizar_videojuego(self, titulo, precio, stock):
-        print(f"El cliente {self.nombre} {self.apellido} no tiene permiso para actualizar el videojuego")
