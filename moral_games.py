@@ -1,3 +1,32 @@
+class Videojuego:
+    def __init__(self, titulo, plataforma, precio, stock, genero):
+        self.titulo = titulo
+        self.plataforma = plataforma
+        self.precio = precio
+        self.stock = stock  
+        self.genero = genero
+
+        try:
+            if self.precio <= 0 or self.stock <= 0:
+                print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
+                return
+        except TypeError:
+            print(f"El precio y el stock del videojuego {self.titulo} deben ser numeros naturales")
+            return
+
+class VideojuegoPc(Videojuego):
+    def __init__(self, titulo, plataforma, precio, stock, genero, requisitos_minimos):
+        super().__init__(titulo, plataforma, precio, stock, genero)
+        self.requisitos_minimos = requisitos_minimos   
+        Inventario.requisitos_videojuegos[self.titulo] = self.requisitos_minimos
+
+        
+class VideojuegoConsola(Videojuego):
+    def __init__(self, titulo, plataforma, precio, stock, genero, clasificacion):
+        super().__init__(titulo, plataforma, precio, stock, genero)
+        self.clasificacion = clasificacion
+        Inventario.clasificacion_videojuegos[self.titulo] = self.clasificacion
+
 class Inventario:
     genero_videojuegos = {}
     inventario_videojuegos = [] 
@@ -6,6 +35,53 @@ class Inventario:
     requisitos_videojuegos = {}
     clasificacion_videojuegos = {}
     
+    def agregar_videojuego(self, videojuego):
+        if videojuego.titulo not in self.inventario_videojuegos:
+            print(f"Se ha agregado el videojuego {videojuego.titulo} al inventario.")
+
+            self.inventario_videojuegos.append(videojuego.titulo)
+            self.precio_videojuegos[videojuego.titulo] = videojuego.precio
+            self.stock_videojuegos[videojuego.titulo] = videojuego.stock
+
+            if videojuego.genero in self.genero_videojuegos:
+                self.genero_videojuegos[videojuego.genero].append(videojuego.titulo)
+            else:
+                self.genero_videojuegos[videojuego.genero] = [videojuego.titulo]
+
+        else:
+            print(f"!El videojuego {videojuego.titulo} ya se encuentra en el inventario")       
+
+
+    def actualizar_videojuego(self, titulo, precio, stock):
+        if precio <= 0 or stock <= 0:
+            print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
+            return
+        
+        if titulo in self.inventario_videojuegos:
+            self.stock_videojuegos[titulo] = stock
+            self.precio_videojuegos[titulo] = precio
+            print(f"Se ha actualizado el videojuego {titulo}, con un precio de {precio} y un stock de {stock}")
+        else:
+            print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")    
+        
+
+juego1 = VideojuegoPc("cosio", "pc", 20, 20, "eche", "4de ram")
+
+inventario = Inventario()
+inventario.agregar_videojuego(juego1)
+
+print(inventario.requisitos_videojuegos)
+print()
+
+class Cliente(Inventario):
+    contador_carrito = 0
+
+    def __init__(self, nombre, apellido):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.productos_carrito = []
+        self.carrito_tomado = False
+
     def buscar_videojuego(self, videojuego_genero):
         print(f"Se busco '{videojuego_genero}', se encontro: ")
 
@@ -32,18 +108,6 @@ class Inventario:
         else:
             print("No hay videojuegos en el inventario de la tienda")
 
-    def actualizar_videojuego(self, titulo, precio, stock):
-        if precio <= 0 or stock <= 0:
-            print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
-            return
-        
-        if titulo in self.inventario_videojuegos:
-            self.stock_videojuegos[titulo] = stock
-            self.precio_videojuegos[titulo] = precio
-            print(f"Se ha actualizado el videojuego {titulo}, con un precio de {precio} y un stock de {stock}")
-        else:
-            print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")    
-
     def mostrar_requisitos(self, titulo):
         if titulo in self.requisitos_videojuegos:
             print(f"Los requisitos minimos del videojuego {titulo} son {self.requisitos_videojuegos[titulo]}\n")
@@ -54,60 +118,8 @@ class Inventario:
         if titulo in self.clasificacion_videojuegos:
             print(f"La clasificacion del videojuego {titulo} es {self.clasificacion_videojuegos[titulo]}\n")
         else:
-            print("\nEl videojuego debe ser de consola")
-            
-class Videojuego(Inventario):
-    def __init__(self, titulo, plataforma, precio, stock, genero):
-        self.titulo = titulo
-        self.plataforma = plataforma
-        self.precio = precio
-        self.stock = stock  
-        self.genero = genero
-
-        try:
-            if self.precio <= 0 or self.stock <= 0:
-                print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
-                return
-        except TypeError:
-            print(f"El precio y el stock del videojuego {self.titulo} deben ser numeros naturales")
-            return
-              
-        if self.titulo not in self.inventario_videojuegos:
-            print(f"Se ha agregado el videojuego {self.titulo} al inventario.")
-
-            self.inventario_videojuegos.append(self.titulo)
-            self.precio_videojuegos[self.titulo] = self.precio
-            self.stock_videojuegos[self.titulo] = self.stock
-            
-            if self.genero in self.genero_videojuegos:
-                self.genero_videojuegos[self.genero].append(self.titulo)
-            else:
-                self.genero_videojuegos[self.genero] = [self.titulo]
-
-        else:
-            print(f"!El videojuego {self.titulo} ya se encuentra en el inventario")       
-
-class VideojuegoPc(Videojuego):
-    def __init__(self, titulo, plataforma, precio, stock, genero, requisitos_minimos):
-        super().__init__(titulo, plataforma, precio, stock, genero)
-        self.requisitos_minimos = requisitos_minimos   
-        self.requisitos_videojuegos[self.titulo] = self.requisitos_minimos
-
-        
-class VideojuegoConsola(Videojuego):
-    def __init__(self, titulo, plataforma, precio, stock, genero, clasificacion):
-        super().__init__(titulo, plataforma, precio, stock, genero)
-        self.clasificacion = clasificacion
-        self.clasificacion_videojuegos[self.titulo] = self.clasificacion
-        
-class Cliente(Inventario):
-    contador_carrito = 0
-
-    def __init__(self, nombre, apellido):
-        self.nombre = nombre
-        self.apellido = apellido
-        self.productos_carrito = []
-        self.carrito_tomado = False
+            print("\nEl videojuego debe ser de consola")        
+    
 
     def tomar_carrito(self):
         Cliente.contador_carrito += 1
