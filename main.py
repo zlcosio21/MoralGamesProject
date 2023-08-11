@@ -1,37 +1,37 @@
-from moral_games import Inventario, Videojuego, VideojuegoConsola, VideojuegoPc, Cliente
+from moral_games import Videojuego, VideojuegoPc, VideojuegoConsola, Inventario, Cliente, Carrito, Compra
 
-#Agregar videojuegos al inventario
+#Crear videojuegos
 juego1 = VideojuegoConsola("Resident Evil 4", "Consola", 38, 100, "Survival Horror", "D")
 juego2 = VideojuegoConsola("Fifa 21", "Consola", 70, 100, "Deportes", "A")
-juego3 = VideojuegoConsola("Devil May Cry 3", "Consola", 20, 100, "Accion", "D")
-juego4 = VideojuegoConsola("Need For Speed Most Wanted", "Consola", 40, 100, "Carreras", "A")
-juego5 = VideojuegoConsola("Shadow of the Colossus", "Consola", 92, 100, "Aventura", "B")
-juego6 = VideojuegoConsola("Red Dead Redemption 2", "Consola", 339, 100, "Mundo Abierto", "C")
-juego7 = VideojuegoConsola("The Legend of Zelda", "Consola", 339, 100, "Mundo Abierto", "A")
-juego9 = VideojuegoConsola("Spider-Man", "Consola", 259, 100, "Mundo Abierto", "B")
-juego10 = VideojuegoConsola("Metal Gear Solid V", "Consola", 119, 100, "Accion", "C")
-juego11 = VideojuegoConsola("Devil May Cry 5", "Consola", 176, 100, "Accion", "D")
-juego12 = VideojuegoConsola("Life Is Strange", "Consola", 49, 100, "Aventura", "C")
-juego13 = VideojuegoConsola("The Last of Us", "Consola", 419, 100, "Survival horror", "M")
-juego14 = VideojuegoConsola("God of War Ragnarok", "Consola", 339, 100, "Aventura", "M")
-juego15 = VideojuegoConsola("Elden Ring", "Consola", 207, 100, "Aventura", "C")
 
-juego16 = VideojuegoPc("Grand Theft Auto San Andreas", "PC", 100, 100, "Mundo Abierto", "1Ghz, 256MB RAM. 64MB Geforce, 3.6GB")
-juego17 = VideojuegoPc("Call of Duty Blacks Ops 2", "PC", 60, 100, "Accion", "2.66GHz, 2GB RAM, 512MB Nvidia, 16GB")
-juego18 = VideojuegoPc("Outlast", "PC", 47, 100, "Terror", "2.66GHz, 2GB RAM, 512MB Nvidia, 16GB")
-juego19 = VideojuegoPc("It Takes Two", "PC", 159, 100, "Aventura", "AMD FX 6100, 8GB RAM, AMD 260X, 50GB")
-juego20 = VideojuegoPc("Resident Evil 7", "PC", 156, 100, "Terror", "2.70GHz, 8GB RAM, Geforce GTX 760, 24GB")
-juego21 = VideojuegoPc("Outlast 2", "PC", 83, 100, "Terror", "Intel Core i5, 8GB RAM, 1.5GB Geforce, 30GB")
-juego23 = VideojuegoPc("Until Dawn", "PC", 99, 100, "Terror", "2.4GHz, 4GB RAM, 256MB, 13GB")
-juego24 = VideojuegoPc("Pay Day 3", "PC", 49, 100, "Accion", "I5-9400F, 16GB RAM, 4GB Nvidia, 83GB")
-juego24.actualizar_videojuego("Pay Day 3", 21, 21)
+juego3 = Videojuego("Need For Speed Most Wanted", "Consola", 40, 100, "Carreras")
 
-#Toma de carrito y compra de cliente
+juego4 = VideojuegoPc("Grand Theft Auto San Andreas", "PC", 100, 100, "Mundo Abierto", "1Ghz, 256MB RAM. 64MB Geforce, 3.6GB")
+juego5 = VideojuegoPc("Call of Duty Blacks Ops 2", "PC", 60, 100, "Accion", "2.66GHz, 2GB RAM, 512MB Nvidia, 16GB")
+
+#Agregar videojuegos al inventario
+inventario = Inventario()
+inventario.agregar_videojuego(juego1)
+inventario.agregar_videojuego(juego2)
+inventario.agregar_videojuego(juego3)
+inventario.agregar_videojuego(juego4)
+inventario.agregar_videojuego(juego5)
+
+#actualizacion videojuego
+inventario.actualizar_videojuego("Need For Speed Most Wanted", 21, 21)
+
+#Acciones del cliente
 cliente1 = Cliente("Tom", "Holland")
 cliente1.mostrar_videojuegos()
-cliente1.buscar_videojuego("Terror")
+cliente1.buscar_videojuego("Deportes")
 cliente1.mostrar_clasificacion("Resident Evil 4")
-cliente1.mostrar_requisitos("Resident Evil 7")
-cliente1.tomar_carrito()
-cliente1.agregar_productos(10, "Grand Theft Auto San Andreas", "Call of Duty Blacks Ops 2", "Outlast 2")
+cliente1.mostrar_requisitos("Call of Duty Blacks Ops 2")
+
+#Toma de carrito
+cliente1 = Carrito(cliente1)
+cliente1.agregar_productos(10, "Resident Evil 4", "Call of Duty Blacks Ops 2")
+cliente1.mostrar_productos()
+
+#Compra del cliente
+cliente1 = Compra(cliente1)
 cliente1.realizar_compra()

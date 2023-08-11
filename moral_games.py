@@ -148,6 +148,7 @@ class Carrito:
 
             for productos in self.productos_carrito:
                 print(f"-{productos}")
+            print("")
 
         else:
             print(f"No se encuentran productos en el carrito de {self.nombre}, {self.apellido}")        
