@@ -106,7 +106,7 @@ class Cliente:
 
     def mostrar_clasificacion(self, titulo):
         if titulo in Inventario.clasificacion_videojuegos:
-            print(f"La clasificacion del videojuego {titulo} es {Inventario.clasificacion_videojuegos[titulo]}\n")
+            print(f"La clasificacion del videojuego {titulo} es {Inventario.clasificacion_videojuegos[titulo]}")
         else:
             print("\nEl videojuego debe ser de consola")        
     
@@ -143,8 +143,15 @@ class Carrito:
         print("Todos los videojuegos se han agregado al carrito \n")
 
     def mostrar_productos(self):
-        for productos in self.productos_carrito:
-            print(productos)
+        if self.productos_carrito:
+            print("Los productos que se encuentran en el carrito son:")
+
+            for productos in self.productos_carrito:
+                print(f"-{productos}")
+
+        else:
+            print(f"No se encuentran productos en el carrito de {self.nombre}, {self.apellido}")        
+        
 
 class Compra:
     def __init__(self, cliente):
