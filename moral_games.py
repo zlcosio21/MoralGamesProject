@@ -114,10 +114,12 @@ class Carrito:
     contador_carrito = 0    
 
     def __init__(self, cliente):
-        Carrito.contador_carrito += 1
-        self.productos_carrito = []
+        self.nombre = cliente.nombre
+        self.apellido = cliente.apellido
+        self.productos_carrito = {}
 
-        print(f"El cliente {cliente.nombre} {cliente.apellido} a tomado el carrito {self.contador_carrito}")
+        Carrito.contador_carrito += 1
+        print(f"El cliente {self.nombre} {self.apellido} a tomado el carrito {self.contador_carrito}")
 
     def agregar_productos(self, cantidad, *videojuegos_comprados):
         self.cantidad = cantidad
@@ -130,8 +132,8 @@ class Carrito:
                     print(f"No se pueden agregar {self.cantidad} unidades del videojuego {videojuego}, Se agregarán las {stock_disponible} unidades disponibles al carrito")
                     self.cantidad = stock_disponible
                     
-                self.productos_carrito.append(videojuego)
                 Inventario.stock_videojuegos[videojuego] -= self.cantidad
+                self.productos_carrito[videojuego] = self.cantidad
                 print(f"-El videojuego {videojuego} se ha gregado al carrito de {self.nombre} con una cantidad de {self.cantidad} unidades")
 
             else:
@@ -139,6 +141,14 @@ class Carrito:
                 return
             
         print("Todos los videojuegos se han agregado al carrito \n")
+
+class Compra:
+    def __init__(self, cliente):
+        self.nombre = cliente.nombre
+        self.apellido = cliente.apellido
+        self.productos_carrito = cliente.productos_carrito
+
+        print(f"El cliente {self.nombre}, {self.apellido} esta a punto de realizar la compra")
 
     def realizar_compra(self):
         total_compra = 0
@@ -148,7 +158,9 @@ class Carrito:
             return
         
         for videojuego in self.productos_carrito:
-            precio_videojuego = self.precio_videojuegos[videojuego] * self.cantidad
+            cantidad = self.productos_carrito[videojuego]
+
+            precio_videojuego = Inventario.precio_videojuegos[videojuego] * cantidad
             total_compra = total_compra + precio_videojuego
 
         print(f"El total de la compra de {self.nombre} {self.apellido} es: ${total_compra}")
