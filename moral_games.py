@@ -17,6 +17,7 @@ class VideojuegoConsola(Videojuego):
         super().__init__(titulo, plataforma, precio, stock, genero)
         self.clasificacion = clasificacion
 
+
 class Inventario:
     genero_videojuegos = {}
     inventario_videojuegos = [] 
@@ -56,7 +57,7 @@ class Inventario:
 
     def actualizar_videojuego(self, titulo, precio, stock):
         if precio <= 0 or stock <= 0:
-            print(f"El stock y precio del videojuego {self.titulo}, debe ser mayor a 0")
+            print(f"El stock y precio del videojuego {titulo}, debe ser mayor a 0")
             return
         
         if titulo in self.inventario_videojuegos:
@@ -66,9 +67,9 @@ class Inventario:
         else:
             print(f"El videojuego de titulo {titulo}, no se encuentra en el inventario")    
         
-class Cliente(Inventario):
-    contador_carrito = 0
 
+
+class Cliente:
     def __init__(self, nombre, apellido):
         self.nombre = nombre
         self.apellido = apellido
@@ -78,23 +79,23 @@ class Cliente(Inventario):
     def buscar_videojuego(self, videojuego_genero):
         print(f"Se busco '{videojuego_genero}', se encontro: ")
 
-        if videojuego_genero in self.genero_videojuegos:
-            lista_generos = self.genero_videojuegos[videojuego_genero]
+        if videojuego_genero in Inventario.genero_videojuegos:
+            lista_generos = Inventario.genero_videojuegos[videojuego_genero]
 
             for videojuego in lista_generos:
                 print(f"-{videojuego}")
             print("\n")
 
-        elif videojuego_genero in self.inventario_videojuegos:
+        elif videojuego_genero in Inventario.inventario_videojuegos:
             print(f"-{videojuego_genero}")
         else:
             print(f"El videojuego o genero, no se encuentra en el inventario")
 
     def mostrar_videojuegos(self):
-        if self.inventario_videojuegos:
+        if Inventario.inventario_videojuegos:
             print("\nLos videojuegos que se encuentran en la tienda son:")
 
-            for juego in self.inventario_videojuegos:
+            for juego in Inventario.inventario_videojuegos:
                 print(f"-{juego}")
             print("\n")
 
@@ -102,14 +103,14 @@ class Cliente(Inventario):
             print("No hay videojuegos en el inventario de la tienda")
 
     def mostrar_requisitos(self, titulo):
-        if titulo in self.requisitos_videojuegos:
-            print(f"Los requisitos minimos del videojuego {titulo} son {self.requisitos_videojuegos[titulo]}\n")
+        if titulo in Inventario.requisitos_videojuegos:
+            print(f"Los requisitos minimos del videojuego {titulo} son {Inventario.requisitos_videojuegos[titulo]}\n")
         else:
             print("El videojuego debe ser de pc\n")
 
     def mostrar_clasificacion(self, titulo):
-        if titulo in self.clasificacion_videojuegos:
-            print(f"La clasificacion del videojuego {titulo} es {self.clasificacion_videojuegos[titulo]}\n")
+        if titulo in Inventario.clasificacion_videojuegos:
+            print(f"La clasificacion del videojuego {titulo} es {Inventario.clasificacion_videojuegos[titulo]}\n")
         else:
             print("\nEl videojuego debe ser de consola")        
     
